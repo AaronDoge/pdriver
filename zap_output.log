@@ -1,0 +1,24 @@
+{"level":"error","ts":1545730833.4277048,"msg":"error","detail":"redis connected"}
+{"level":"info","ts":1545730833.4287047,"msg":"info","detail":"redis connected"}
+{"level":"error","ts":1545730833.4287047,"msg":"redis error","detail":"connect refused"}
+{"level":"error","ts":1545732121.581383,"msg":"error","detail":"redis connected"}
+{"level":"info","ts":1545732121.5823832,"msg":"info","detail":"redis connected"}
+{"level":"error","ts":1545732121.5823832,"msg":"redis error","detail":"connect refused"}
+{"level":"error","ts":1545732160.9576352,"msg":"error","detail":"redis connected"}
+{"level":"info","ts":1545732160.9586353,"msg":"info","detail":"redis connected"}
+{"level":"error","ts":1545732160.9586353,"msg":"redis error","detail":"connect refused"}
+{"level":"\u001b[31mERROR\u001b[0m","timestamp":"2018-12-25T18:06:48.704+0800","msg":"error","detail":"redis connected"}
+{"level":"\u001b[34mINFO\u001b[0m","timestamp":"2018-12-25T18:06:48.724+0800","msg":"info","detail":"redis connected"}
+{"level":"\u001b[31mERROR\u001b[0m","timestamp":"2018-12-25T18:06:48.724+0800","msg":"redis error","detail":"connect refused"}
+{"level":"ERROR","timestamp":"2018-12-25T18:07:19.243+0800","msg":"error","detail":"redis connected"}
+{"level":"INFO","timestamp":"2018-12-25T18:07:19.264+0800","msg":"info","detail":"redis connected"}
+{"level":"ERROR","timestamp":"2018-12-25T18:07:19.264+0800","msg":"redis error","detail":"connect refused"}
+{"level":"ERROR","timestamp":"2018-12-25T18:08:14.504+0800","message":"error","detail":"redis connected"}
+{"level":"INFO","timestamp":"2018-12-25T18:08:14.520+0800","message":"info","detail":"redis connected"}
+{"level":"ERROR","timestamp":"2018-12-25T18:08:14.520+0800","message":"redis error","detail":"connect refused"}
+{"level":"ERROR","timestamp":"2018-12-25T18:10:36.952+0800","message":"error","detail":"redis connected"}
+{"level":"INFO","timestamp":"2018-12-25T18:10:36.972+0800","message":"info","detail":"redis connected"}
+{"level":"ERROR","timestamp":"2018-12-25T18:10:36.972+0800","message":"redis error","detail":"connect refused"}
+{"level":"ERROR","time":"2018-12-25T18:14:40.733+0800","message":"error","detail":"redis connected"}
+{"level":"INFO","time":"2018-12-25T18:14:40.756+0800","message":"info","detail":"redis connected"}
+{"level":"ERROR","time":"2018-12-25T18:14:40.756+0800","message":"redis error","detail":"connect refused"}
