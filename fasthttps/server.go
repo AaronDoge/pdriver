@@ -1,4 +1,4 @@
-package main
+package fasthttps
 
 import (
 	"fmt"
@@ -12,7 +12,7 @@ func httpHadle(ctx *fasthttp.RequestCtx) {
 	fmt.Println(ctx.Request.Body(), "hello fasthttp...")
 }
 
-func main() {
+func Start() {
 	//	fs := &fasthttp.FS{
 	//		Root: 	"./",
 	//		GenerateIndexPages: true,
