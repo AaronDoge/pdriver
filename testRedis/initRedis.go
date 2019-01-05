@@ -2,26 +2,23 @@ package testRedis
 
 import (
 	"fmt"
+	"github.com/AaronDoge/pdriver/etc"
 	"github.com/go-redis/redis"
-	"pdriver/etc"
 	"time"
 )
 
 type Server struct {
-	Cfg 	*Config
-	SentinelClient 	*redis.SentinelClient
-	SentinelAddrs 	[]*redis.Client
-	CurrMasterAddr	[]*redis.Client
-
+	Cfg            *Config
+	SentinelClient *redis.SentinelClient
+	SentinelAddrs  []*redis.Client
+	CurrMasterAddr []*redis.Client
 }
 
 type Config struct {
-	MasterName 	string
+	MasterName string
 }
 
-
-
-func NewCacheSentinel() (*redis.Client,error) {
+func NewCacheSentinel() (*redis.Client, error) {
 
 	var c = &etc.Config{}
 	if err := c.LoadConfig("etc/configuration.json"); err != nil {
@@ -30,16 +27,15 @@ func NewCacheSentinel() (*redis.Client,error) {
 	}
 
 	opt := &redis.FailoverOptions{
-		MasterName: 	c.Redis.MasterName,
-		SentinelAddrs: 	c.Redis.Sentinel,
-		Password: 		c.Redis.Password,
-		PoolSize: 		c.Redis.PoolSize,
+		MasterName:    c.Redis.MasterName,
+		SentinelAddrs: c.Redis.Sentinel,
+		Password:      c.Redis.Password,
+		PoolSize:      c.Redis.PoolSize,
 
-		PoolTimeout: 	time.Hour,
-		DialTimeout: 	time.Second,
-		IdleTimeout:	time.Millisecond,
+		PoolTimeout:        time.Hour,
+		DialTimeout:        time.Second,
+		IdleTimeout:        time.Millisecond,
 		IdleCheckFrequency: time.Millisecond,
-
 	}
 	client := redis.NewFailoverClient(opt)
 
@@ -56,21 +52,20 @@ func (s *Server) initSentinelClient() {
 	var sentinelClient = redis.NewSentinelClient(&redis.Options{
 		//MasterName: 	c.Redis.MasterName,
 		//SentinelAddrs: 	c.Redis.Sentinel,
-		Addr: 			c.Redis.Host,
-		Password: 		c.Redis.Password,
-		PoolSize: 		c.Redis.PoolSize,
+		Addr:     c.Redis.Host,
+		Password: c.Redis.Password,
+		PoolSize: c.Redis.PoolSize,
 
-		PoolTimeout: 	time.Hour,
-		DialTimeout: 	time.Second,
-		IdleTimeout:	time.Millisecond,
+		PoolTimeout:        time.Hour,
+		DialTimeout:        time.Second,
+		IdleTimeout:        time.Millisecond,
 		IdleCheckFrequency: time.Millisecond,
 	})
 
 	s.SentinelClient = sentinelClient
 }
 
-func (s *Server)getSentinelClient() {
-
+func (s *Server) getSentinelClient() {
 
 }
 
@@ -86,16 +81,15 @@ func TestClient() {
 	var sentinelClient = redis.NewSentinelClient(&redis.Options{
 		//MasterName: 	c.Redis.MasterName,
 		//SentinelAddrs: 	c.Redis.Sentinel,
-		Addr: 			c.Redis.Host,
-		Password: 		c.Redis.Password,
-		PoolSize: 		c.Redis.PoolSize,
+		Addr:     c.Redis.Host,
+		Password: c.Redis.Password,
+		PoolSize: c.Redis.PoolSize,
 
-		PoolTimeout: 	time.Hour,
-		DialTimeout: 	time.Second,
-		IdleTimeout:	time.Millisecond,
+		PoolTimeout:        time.Hour,
+		DialTimeout:        time.Second,
+		IdleTimeout:        time.Millisecond,
 		IdleCheckFrequency: time.Millisecond,
 	})
-
 
 	master, err := sentinelClient.GetMasterAddrByName("redis-master").Result()
 	if err != nil {
@@ -136,12 +130,11 @@ func TestClient() {
 	var clients []*redis.Client
 	for i := 0; i < len(sentinelAddrs); i++ {
 		client1 := redis.NewClient(&redis.Options{
-			Addr: 	sentinelAddrs[i],
-			MaxRetries: 	3,
-			PoolSize: 		1000,
-			PoolTimeout: 	90 * time.Second,
-			DialTimeout: 	2 * time.Second,
-
+			Addr:        sentinelAddrs[i],
+			MaxRetries:  3,
+			PoolSize:    1000,
+			PoolTimeout: 90 * time.Second,
+			DialTimeout: 2 * time.Second,
 		})
 		clients = append(clients, client1)
 	}
@@ -152,13 +145,13 @@ func ConnSentinel() {
 	sentinels := []string{"172.27.119.39:6379", "172.27.119.40:6379", "172.27.119.38:6379"}
 
 	client := redis.NewClusterClient(&redis.ClusterOptions{
-		Addrs:	sentinels,
-		MaxRetries: 	3,
-		MaxRedirects: 	3,
-		Password: 	"",
-		PoolSize: 	100,
-		PoolTimeout: 	90 * time.Second,
-		DialTimeout: 	2 * time.Second,
+		Addrs:        sentinels,
+		MaxRetries:   3,
+		MaxRedirects: 3,
+		Password:     "",
+		PoolSize:     100,
+		PoolTimeout:  90 * time.Second,
+		DialTimeout:  2 * time.Second,
 	})
 
 	val, err := client.Get("say").Result()

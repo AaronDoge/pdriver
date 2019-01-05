@@ -35,9 +35,9 @@ func Encrypt()  {
 
 // ecc
 
-func EccEncrypt(rand *io.Reader, message, publicKey []byte) ([]byte, error){
-
-}
+//func EccEncrypt(rand *io.Reader, message, publicKey []byte) ([]byte, error){
+//
+//}
 
 func doEccEncrypt() {
 	pubKeyCurve := elliptic.P256()
