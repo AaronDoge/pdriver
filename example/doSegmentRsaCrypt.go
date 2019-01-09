@@ -4,6 +4,7 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"math/rand"
 	"pdriver/encrypt"
 	"pdriver/testdata"
 	"time"
@@ -58,6 +59,31 @@ var test_data = &doTest.ReqBody{
 }
 
 func main() {
+	tagCipher := "816300430f51b96bd442a3b8574e66026a03d338e22b428860a1c0a2383d8156e7e593ef7636095e9fd123afb9291169a472fb67785e48145ff75dd607ee6e745fce90bae007cec319bec60e1ba11b84cfc17840e407f5b02577803140193ebdb313928c8b7a7a1bbca9c64fcb99e225f956a9f575506987a2261614017f2870"
+	//tagByte, err := hex.DecodeString(tagCipher)
+	//if err != nil {
+	//	fmt.Println(err.Error())
+	//}
+
+	tagtmp, err := encrypt.SegmentDecrypt(tagCipher, privateKey2)
+	if err != nil {
+		fmt.Println(err.Error())
+	}
+
+	fmt.Println("解密后：", string(tagtmp))
+
+	rand.Seed(time.Now().Unix())
+	randNum := rand.Intn(100)
+
+	rand.Seed(time.Now().Unix() - int64(1))
+	randNum2 := rand.Intn(100)
+
+	fmt.Printf("rand is %v\n", randNum)
+	fmt.Printf("rand is %v\n", randNum2)
+
+}
+
+func main1() {
 
 	//startEnTime := time.Now()
 	//startEnTimeN := time.Now().Nanosecond()

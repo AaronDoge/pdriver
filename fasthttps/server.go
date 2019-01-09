@@ -1,9 +1,11 @@
 package fasthttps
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/buaazp/fasthttprouter"
 	"github.com/valyala/fasthttp"
+	"net/http"
 )
 
 func httpHadle(ctx *fasthttp.RequestCtx) {
@@ -37,4 +39,18 @@ func Start() {
 
 	fasthttp.ListenAndServe(":8090", router.Handler)
 
+}
+
+func Routes() {
+	http.HandleFunc("/sendjson", func(rw http.ResponseWriter, req *http.Request) {
+		param := struct {
+			Name 	string
+		}{
+			Name: "aaron.chen",
+		}
+
+		rw.Header().Set("Content-Type", "application/json")
+		rw.WriteHeader(http.StatusOK)
+		json.NewEncoder(rw).Encode(param)
+	})
 }

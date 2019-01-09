@@ -7,7 +7,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"goEncrypt"
-	"io"
 	"os"
 	"time"
 )
@@ -35,9 +34,10 @@ func Encrypt()  {
 
 // ecc
 
-func EccEncrypt(rand *io.Reader, message, publicKey []byte) ([]byte, error){
-
-}
+//func EccEncrypt(rand *io.Reader, message, publicKey []byte) ([]byte, error){
+//	syscall.SIGKILL
+//
+//}
 
 func doEccEncrypt() {
 	pubKeyCurve := elliptic.P256()

@@ -17,3 +17,14 @@ func TestFailStringInSlice(t *testing.T) {
 		t.Log("test PASS")
 	}
 }
+
+func TestFibonacci(t *testing.T) {
+	t.Log(Fibonacci(0))
+	t.Log(Fibonacci(1))
+	t.Log(Fibonacci(2))
+	t.Log(Fibonacci(5))
+	t.Log(Fibonacci(6))
+	t.Log(Fibonacci(10))
+	t.Log(Fibonacci(20))
+	t.Log(Fibonacci(64))
+}
