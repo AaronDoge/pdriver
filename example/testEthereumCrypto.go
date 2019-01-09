@@ -2,11 +2,14 @@ package main
 
 import (
 	"bytes"
+	"crypto/ecdsa"
+	"crypto/elliptic"
 	"crypto/rand"
-	"encoding/json"
+	"crypto/x509"
+	"encoding/base64"
 	"fmt"
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
-	"go-ethereum/crypto/ecies"
+	"github.com/ethereum/go-ethereum/crypto/ecies"
 	"time"
 )
 
@@ -82,27 +85,59 @@ var (
 
 func main() {
 	start := time.Now()
-	privateKey, err := ecies.GenerateKey(rand.Reader, DefaultCurve, nil)
+	pubCurve := elliptic.P256()
+	ecdsPriKey, err := ecdsa.GenerateKey(pubCurve, rand.Reader)
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("生成密钥错误", err.Error())
 		return
 	}
 
-	privateKey2, err := ecies.GenerateKey(rand.Reader, DefaultCurve, nil)
+	//privateKey, err := ecies.GenerateKey(rand.Reader, DefaultCurve, nil)
+	//if err != nil {
+	//	fmt.Println(err.Error())
+	//	return
+	//}
+	//
+	//privateKey2, err := ecies.GenerateKey(rand.Reader, DefaultCurve, nil)
+	//if err != nil {
+	//	fmt.Println(err.Error())
+	//	return
+	//}
+
+	eciesPriKey := ecies.ImportECDSA(ecdsPriKey)
+	//eciesPubKey := eciesPriKey.PublicKey
+
+	priKeyStr, err := x509.MarshalECPrivateKey(ecdsPriKey)
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("私钥编码错误", err.Error())
 		return
 	}
+	fmt.Println("私钥：", base64.StdEncoding.EncodeToString(priKeyStr))
+
+	pubKeyStr, err := x509.MarshalPKIXPublicKey(eciesPriKey.PublicKey.ExportECDSA())
+	if err != nil {
+		fmt.Println("公钥编码错误", err.Error())
+		return
+	}
+	fmt.Println("公钥x509编码：", base64.StdEncoding.EncodeToString(pubKeyStr))
+
+
 
 	//message := []byte("hello, world")
-	message, _ := json.Marshal(rBody)
-	cipherTxt, err := ecies.Encrypt(rand.Reader, &privateKey2.PublicKey, message, nil, nil)
+	//message, _ := json.Marshal(rBody)
+	message := []byte("</2018>2018努力让自己不一样，却始终没能跳出圈子；对未来充满忧虑；2019 make a change！如果你看到，与你共勉！<2019>")
+	cipherTxt, err := ecies.Encrypt(rand.Reader, &eciesPriKey.PublicKey, message, nil, nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
 	}
 
-	plainTxt, err := privateKey2.Decrypt(cipherTxt, nil, nil)
+	//fmt.Println("密文：", string(cipherTxt))
+	cipherTxtStr := base64.StdEncoding.EncodeToString(cipherTxt)
+	fmt.Println("base64编码密文：", cipherTxtStr, "\n长度：", len(cipherTxtStr))
+
+
+	plainTxt, err := eciesPriKey.Decrypt(cipherTxt, nil, nil)
 	if err != nil {
 		fmt.Println(err.Error())
 		return
@@ -117,7 +152,7 @@ func main() {
 		return
 	}
 
-	_, err = privateKey.Decrypt(cipherTxt, nil, nil)
+	_, err = eciesPriKey.Decrypt(cipherTxt, nil, nil)
 	if err != nil {
 		fmt.Println("ecies: encryption should not have succeeded")
 		return

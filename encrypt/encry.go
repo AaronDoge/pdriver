@@ -35,7 +35,10 @@ func Encrypt()  {
 // ecc
 
 //func EccEncrypt(rand *io.Reader, message, publicKey []byte) ([]byte, error){
+<<<<<<< HEAD
 //	syscall.SIGKILL
+=======
+>>>>>>> 97f8ad73a3270f4c5685c6018a8b867628468573
 //
 //}
 
