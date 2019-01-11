@@ -18,6 +18,34 @@ func initCodis(addr string) *redis.Client {
 	return client
 }
 
+// 订阅
+func SubscribeCase() {
+	client := initCodis("192.168.32.129:6379")
+	pubSub := client.Subscribe("test")
+
+	for {
+		//time.Sleep(3)
+		recMsg, err := pubSub.Receive()
+		//msg, err := pubSub.ReceiveMessage()
+		//msgStr := msg.String()
+
+		if err != nil {
+			fmt.Println("订阅错误", err.Error())
+			return
+		}
+		fmt.Println(">>>check msg", recMsg)
+
+		fmt.Println(recMsg)
+		//switch recMsg.(type) {
+		//case string:
+		//	fmt.Println("subscribe message is:", recMsg)
+		//case error:
+		//	fmt.Println("错误")
+		//}
+	}
+
+}
+
 func Get(key string) string {
 	addr := "192.168.32.129:19000"
 	client := initCodis(addr)

@@ -35,3 +35,7 @@ func TestClusterSet(t *testing.T) {
 		return
 	}
 }
+
+func TestSubscribeCase(t *testing.T) {
+	SubscribeCase()
+}

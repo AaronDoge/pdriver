@@ -39,6 +39,7 @@ func Start() {
 
 	fasthttp.ListenAndServe(":8090", router.Handler)
 
+
 }
 
 func Routes() {
