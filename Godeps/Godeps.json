@@ -1,0 +1,6 @@
+{
+	"ImportPath": "github.com/AaronDoge/pdriver",
+	"GoVersion": "go1.11",
+	"GodepVersion": "v80",
+	"Deps": []
+}
